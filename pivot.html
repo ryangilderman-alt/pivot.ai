@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pivot — Career Momentum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FEFCF8;--bg2:#F5F0FF;--bg3:#EDE6FF;
+  --sb:#1C1433;--st:rgba(255,255,255,.55);--sa:#fff;--sab:rgba(255,255,255,.11);--shb:rgba(255,255,255,.06);
+  --tx:#1A1525;--tx2:#4A4560;--tx3:#8A86A0;
+  --bd:rgba(80,70,110,.12);--bd2:rgba(80,70,110,.24);
+  --ac:#7B4FE8;--acb:#EEE8FF;--act:#4A22B0;--ach:#6640D0;
+  --gn:#0F9E6A;--gnb:#E3F8EF;--gnt:#0A5E3F;
+  --rb:#FEF0F0;--rt:#8B1F1F;
+  --amber:#F59E0B;--amberb:#FFFBEB;--amberd:#92400E;
+  --r:12px;--rl:16px;
+  --shadow:0 1px 3px rgba(80,70,110,.08),0 4px 12px rgba(80,70,110,.06);
+  --shadow-sm:0 1px 2px rgba(80,70,110,.06);
+}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:100vh;}
+
+/* Sidebar */
+.side{background:var(--sb);padding:24px 12px;display:flex;flex-direction:column;gap:3px;position:sticky;top:0;height:100vh;border-right:1px solid rgba(255,255,255,.04);}
+.logo{font-size:17px;font-weight:700;color:#fff;padding:0 12px;margin-bottom:6px;letter-spacing:-.4px;}.logo-sub{font-size:10px;color:rgba(255,255,255,.35);padding:0 12px;margin-bottom:22px;letter-spacing:.02em;}
+.logo span{color:#A78BFA;}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r);font-size:13px;color:var(--st);border:none;background:none;width:100%;text-align:left;cursor:pointer;transition:background .12s,color .12s;font-family:inherit;}
+.ni:hover{background:var(--shb);color:var(--sa);}
+.ni.on{background:var(--sab);color:var(--sa);font-weight:600;}
+.ni svg{width:15px;height:15px;opacity:.5;flex-shrink:0;}
+.ni.on svg{opacity:1;}
+.ns{font-size:9px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em;padding:14px 12px 5px;}
+.badge{font-size:11px;color:#6EE7B7;padding:7px 12px;background:rgba(110,231,183,.1);border-radius:var(--r);margin-top:6px;border:.5px solid rgba(110,231,183,.2);}
+.badge.none{color:rgba(255,255,255,.4);background:none;border:none;padding:6px 12px 0;}
+
+/* Main */
+.main{overflow-y:auto;}
+.pg{display:none;padding:36px 44px;max-width:860px;}
+.pg.on{display:block;}
+.ph{margin-bottom:28px;padding-bottom:18px;border-bottom:.5px solid var(--bd);}
+.ph h1{font-size:22px;font-weight:700;letter-spacing:-.5px;color:var(--tx);}
+.ph p{font-size:13px;color:var(--tx3);margin-top:5px;font-weight:400;}
+
+/* Forms */
+label{display:block;font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+textarea,input[type=text]{width:100%;border:.5px solid var(--bd2);border-radius:var(--r);padding:11px 13px;font-size:13px;font-family:inherit;color:var(--tx);background:var(--bg);resize:vertical;line-height:1.6;}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(107,63,228,.1);}
+.f{margin-bottom:18px;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--r);border:.5px solid var(--bd2);background:var(--bg);color:var(--tx);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .1s;}
+.btn:hover{background:var(--bg2);}
+.btn:active{transform:scale(.98);}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.bp{background:var(--ac);color:#fff;border-color:var(--ac);box-shadow:0 2px 8px rgba(123,79,232,.25);}
+.bp:hover{background:var(--ach);border-color:var(--ach);box-shadow:0 3px 12px rgba(123,79,232,.3);}
+.bs{padding:6px 12px;font-size:12px;}
+
+/* Cards */
+.card{background:#fff;border:.5px solid var(--bd);border-radius:var(--rl);padding:20px 24px;margin-bottom:14px;box-shadow:var(--shadow-sm);}
+
+/* Score */
+.sw{display:flex;align-items:center;gap:20px;padding:20px 24px;background:linear-gradient(135deg,#F8F4FF,#EEE8FF);border-radius:var(--rl);margin-bottom:20px;border:.5px solid rgba(123,79,232,.15);box-shadow:var(--shadow-sm);}
+.sr{width:82px;height:82px;border-radius:50%;border:3px solid var(--ac);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.sr .n{font-size:28px;font-weight:700;line-height:1;}
+.sr .l{font-size:10px;color:var(--tx3);}
+
+/* Metrics */
+.mr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.mc{background:#fff;border-radius:var(--rl);padding:16px;border:.5px solid var(--bd);box-shadow:var(--shadow-sm);}
+.mc .ml{font-size:10px;color:var(--tx3);margin-bottom:3px;}
+.mc .mv{font-size:22px;font-weight:700;line-height:1;}
+.mc .ms{font-size:10px;color:var(--tx2);margin-top:2px;}
+
+/* Two col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.sh{font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+
+/* Values list */
+.vl{list-style:none;}
+.vl li{font-size:13px;padding:9px 0;border-bottom:.5px solid var(--bd);line-height:1.5;}
+.vl li:last-child{border-bottom:none;}
+.vl li strong{color:var(--ac);font-weight:600;}
+
+/* Keywords */
+.kg{display:flex;flex-wrap:wrap;gap:5px;}
+.kw{font-size:11px;padding:3px 9px;border-radius:20px;}
+.kw.hit{background:var(--gnb);color:var(--gnt);border:.5px solid #97C459;}
+.kw.miss{background:var(--rb);color:var(--rt);border:.5px solid #F09595;}
+
+/* Tabs */
+.tabs{display:flex;border-bottom:.5px solid var(--bd);margin-bottom:20px;}
+.tab{padding:9px 20px;font-size:13px;font-weight:500;color:var(--tx2);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-.5px;font-family:inherit;}
+.tab.on{color:var(--ac);border-bottom-color:var(--ac);}
+
+/* Resume input tabs */
+.rtabs{display:flex;border:.5px solid var(--bd2);border-radius:var(--r);overflow:hidden;margin-bottom:18px;width:fit-content;}
+.rtab{padding:8px 18px;font-size:13px;border:none;background:none;color:var(--tx2);cursor:pointer;font-family:inherit;font-weight:500;}
+.rtab.on{background:var(--ac);color:#fff;}
+
+/* Upload zone */
+.uz{border:1.5px dashed var(--bd2);border-radius:var(--rl);padding:36px 32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s;}
+.uz:hover,.uz.drag{border-color:var(--ac);background:linear-gradient(135deg,#F5F0FF,#EDE8FF);box-shadow:0 0 0 3px rgba(123,79,232,.08);}
+.uz svg{width:34px;height:34px;color:var(--tx3);margin:0 auto 12px;display:block;}
+.uz h3{font-size:14px;font-weight:600;margin-bottom:4px;}
+.uz p{font-size:12px;color:var(--tx3);}
+.fpill{display:inline-flex;align-items:center;gap:8px;background:var(--acb);color:var(--act);border:.5px solid rgba(107,63,228,.3);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500;margin-top:14px;}
+
+/* Loading */
+.ld{text-align:center;padding:56px 20px;color:var(--tx2);}
+.sp{width:28px;height:28px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .75s linear infinite;margin:0 auto 14px;}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lstp{font-size:13px;color:var(--tx3);margin-top:6px;}
+
+/* Alerts */
+.al{padding:11px 15px;border-radius:var(--r);font-size:13px;margin-bottom:16px;}
+.ali{background:var(--acb);color:var(--act);}
+.als{background:var(--gnb);color:var(--gnt);}
+
+/* Change cards */
+.cc{border:.5px solid var(--bd);border-radius:var(--rl);padding:16px 18px;margin-bottom:12px;background:#fff;box-shadow:var(--shadow-sm);transition:border-color .15s,box-shadow .15s;}
+.co{font-size:12px;color:var(--tx3);font-style:italic;margin-bottom:6px;}
+.cn{font-size:13px;color:var(--act);line-height:1.6;}
+.cw{font-size:11px;color:var(--tx3);margin-top:5px;}
+.ca{display:flex;gap:7px;margin-top:10px;}
+.acc{border-color:var(--ac);background:linear-gradient(135deg,#F5F0FF,#EDE8FF);box-shadow:0 0 0 1.5px rgba(123,79,232,.15);}
+.rej{opacity:.3;filter:grayscale(.4);}
+
+/* Export bar */
+.eb{background:linear-gradient(135deg,#F5F0FF,#EDE6FF);border:.5px solid rgba(123,79,232,.18);border-radius:var(--rl);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-top:22px;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow-sm);}
+.eb p{font-size:13px;color:var(--tx2);}
+
+/* Steps */
+.steps{display:flex;align-items:center;margin-bottom:24px;}
+.step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);}
+.step.done{color:var(--ac);}
+.step.act{color:var(--tx);font-weight:600;}
+.sdot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.step.done .sdot{background:var(--ac);border-color:var(--ac);color:#fff;}
+.step.act .sdot{border-color:var(--ac);color:var(--ac);}
+.sln{flex:1;height:.5px;background:var(--bd);margin:0 10px;min-width:20px;}
+
+.hint{background:linear-gradient(135deg,#F8F4FF,#F2EEFF);border:.5px solid rgba(123,79,232,.15);border-radius:var(--r);padding:13px 16px;font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:18px;}
+/* Inline diff */
+.diff-wrap{width:100%;min-height:480px;font-family:inherit;font-size:13px;line-height:1.9;color:var(--tx);background:#fff;border:.5px solid var(--bd2);border-radius:var(--rl);padding:24px 28px;box-shadow:var(--shadow-sm);white-space:pre-wrap;word-wrap:break-word;}
+.diff-ins{background:#E8F8EF;color:#0A5E3F;border-radius:3px;padding:1px 3px;text-decoration:none;font-weight:500;}
+.diff-del{background:#FEE8E8;color:#8B1F1F;border-radius:3px;padding:1px 3px;text-decoration:line-through;opacity:.7;}
+.diff-legend{display:flex;gap:16px;margin-bottom:12px;font-size:11px;color:var(--tx3);}
+.diff-legend span{display:inline-flex;align-items:center;gap:5px;}
+.dl-ins{background:#E8F8EF;color:#0A5E3F;border-radius:3px;padding:1px 6px;font-size:11px;}
+.dl-del{background:#FEE8E8;color:#8B1F1F;border-radius:3px;padding:1px 6px;font-size:11px;text-decoration:line-through;}
+.hint strong{color:var(--tx);}
+hr{border:none;border-top:.5px solid var(--bd);margin:20px 0;}
+
+/* Interview prep */
+.qcard{background:#fff;border:.5px solid var(--bd);border-radius:var(--rl);padding:20px 24px;margin-bottom:16px;}
+.qcard .qtag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:3px 10px;border-radius:20px;margin-bottom:12px;}
+.qtag.beh{background:#EDE8FF;color:#3D1FA8;}
+.qtag.sit{background:#E4F9F1;color:#0A6644;}
+.qtag.gap{background:#FEF0F2;color:#8B1F2F;}
+.qtag.co{background:#FFF8EC;color:#7A4A00;}
+.qcard h3{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:10px;line-height:1.4;}
+.qcard .qlbl{font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 5px;}
+.qcard .qans{font-size:13px;color:var(--tx2);line-height:1.75;white-space:pre-wrap;}
+.qcard .qtip{font-size:12px;color:var(--ac);background:var(--acb);border-radius:var(--r);padding:10px 13px;margin-top:10px;line-height:1.55;}
+.prep-intro{background:linear-gradient(135deg,#1C1740,#2D2060);border-radius:var(--rl);padding:22px 26px;margin-bottom:24px;color:#fff;}
+.prep-intro h2{font-size:16px;font-weight:700;margin-bottom:6px;}
+.prep-intro p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;}
+.prep-meta{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.prep-meta span{font-size:11px;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px;}
+.section-divider{display:flex;align-items:center;gap:12px;margin:24px 0 16px;}
+.section-divider h2{font-size:12px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+.section-divider::after{content:'';flex:1;height:.5px;background:var(--bd);}
+
+/* Narrative tool */
+.role-entry{background:#fff;border:.5px solid var(--bd);border-radius:var(--rl);padding:18px 22px;margin-bottom:14px;position:relative;}
+.role-entry .role-num{font-size:10px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.role-entry .role-del{position:absolute;top:16px;right:18px;background:none;border:none;font-size:18px;color:var(--tx3);cursor:pointer;line-height:1;padding:0;}
+.role-entry .role-del:hover{color:var(--rt);}
+.situation-select{width:100%;border:.5px solid var(--bd2);border-radius:var(--r);padding:9px 11px;font-size:12px;font-family:inherit;color:var(--tx);background:var(--bg);appearance:none;}
+.situation-select:focus{outline:none;border-color:var(--ac);}
+.private-note{border:.5px solid rgba(107,63,228,.25);background:var(--acb);border-radius:var(--r);padding:9px 11px;font-size:12px;font-family:inherit;color:var(--tx);resize:vertical;line-height:1.6;width:100%;}
+.private-note:focus{outline:none;border-color:var(--ac);}
+.private-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--act);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.narc-out{background:#fff;border:.5px solid var(--bd);border-radius:var(--rl);padding:22px 26px;margin-bottom:14px;}
+.narc-out h3{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.narc-body{font-size:13px;color:var(--tx2);line-height:1.85;}
+.narc-bul{list-style:none;padding:0;margin:8px 0 0;}
+.narc-bul li{font-size:12px;color:var(--tx2);line-height:1.55;padding:3px 0 3px 14px;position:relative;}
+.narc-bul li::before{content:"–";position:absolute;left:0;color:var(--ac);font-size:12px;line-height:1.55;font-weight:700;}
+.narc-role-card{border:.5px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;background:var(--bg);}
+.narc-role-card .rc-co{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:3px;}
+.narc-role-card .rc-q{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px;}
+.narc-role-card .rc-a{font-size:12px;color:var(--tx2);line-height:1.65;}
+.tip-box{background:linear-gradient(135deg,#1C1740,#2D2060);border-radius:var(--r);padding:14px 18px;margin-top:6px;}
+.tip-box p{font-size:12px;color:rgba(255,255,255,.8);line-height:1.65;}
+.tip-box strong{color:#A78BFA;}
+
+/* ── Auth screen ── */
+.auth-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1C1433 0%,#2D1F5E 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
+.auth-box{background:#fff;border-radius:20px;padding:40px 44px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.35);}
+.auth-logo{font-size:22px;font-weight:700;color:#1A1525;letter-spacing:-.4px;margin-bottom:4px;}.auth-logo span{color:#7B4FE8;}
+.auth-tagline{font-size:12px;color:#8A86A0;margin-bottom:28px;}
+.auth-tabs{display:flex;gap:0;border:.5px solid rgba(80,70,110,.2);border-radius:10px;overflow:hidden;margin-bottom:24px;width:100%;}
+.auth-tab{flex:1;padding:9px;font-size:13px;font-weight:500;border:none;background:none;cursor:pointer;color:#8A86A0;font-family:inherit;transition:background .12s,color .12s;}
+.auth-tab.on{background:#7B4FE8;color:#fff;}
+.auth-field{margin-bottom:16px;}
+.auth-field label{display:block;font-size:11px;font-weight:600;color:#4A4560;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.auth-field input{width:100%;border:.5px solid rgba(80,70,110,.24);border-radius:10px;padding:11px 14px;font-size:13px;font-family:inherit;color:#1A1525;background:#FEFCF8;outline:none;}
+.auth-field input:focus{border-color:#7B4FE8;box-shadow:0 0 0 3px rgba(123,79,232,.1);}
+.auth-btn{width:100%;padding:12px;background:#7B4FE8;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:4px;box-shadow:0 4px 14px rgba(123,79,232,.3);transition:background .15s;}
+.auth-btn:hover{background:#6640D0;}
+.auth-err{font-size:12px;color:#8B1F1F;background:#FEF0F0;border-radius:8px;padding:9px 12px;margin-bottom:14px;display:none;}
+.auth-footer{font-size:11px;color:#8A86A0;text-align:center;margin-top:18px;}
+
+/* ── Applications dashboard ── */
+.app-dash{padding:36px 44px;max-width:860px;}
+.app-dash h1{font-size:22px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px;}
+.app-dash .sub{font-size:13px;color:#8A86A0;margin-bottom:28px;}
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:28px;}
+.app-card{background:#fff;border:.5px solid rgba(80,70,110,.12);border-radius:16px;padding:18px 20px;box-shadow:0 1px 2px rgba(80,70,110,.06);cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.app-card:hover{box-shadow:0 4px 16px rgba(80,70,110,.1);border-color:rgba(123,79,232,.2);}
+.app-card .ac-co{font-size:13px;font-weight:600;color:#1A1525;margin-bottom:2px;}
+.app-card .ac-ro{font-size:12px;color:#8A86A0;margin-bottom:12px;}
+.app-card .ac-score{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;}
+.app-card .ac-date{font-size:11px;color:#8A86A0;margin-top:10px;}
+.app-card .ac-badges{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
+.ac-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;}
+.acb-cl{background:#E3F8EF;color:#0A5E3F;}
+.acb-pr{background:#EEE8FF;color:#4A22B0;}
+.acb-na{background:#FFF8EC;color:#92400E;}
+.new-app-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#F5F0FF,#EDE6FF);border:1.5px dashed rgba(123,79,232,.3);border-radius:16px;font-size:13px;font-weight:500;color:#7B4FE8;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s;}
+.new-app-btn:hover{background:linear-gradient(135deg,#EDE8FF,#E5DCFF);border-color:rgba(123,79,232,.5);}
+.dash-section{margin-bottom:24px;}
+.dash-section h2{font-size:13px;font-weight:600;color:#1A1525;margin-bottom:12px;}
+.resume-summary{background:#fff;border:.5px solid rgba(80,70,110,.12);border-radius:16px;padding:16px 20px;box-shadow:0 1px 2px rgba(80,70,110,.06);display:flex;align-items:center;justify-content:space-between;}
+.rs-left .rs-name{font-size:13px;font-weight:600;color:#1A1525;}
+.rs-left .rs-words{font-size:12px;color:#8A86A0;margin-top:2px;}
+.score-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;}
+
+/* Sidebar user info */
+.side-user{margin-top:auto;padding:12px;border-top:.5px solid rgba(255,255,255,.08);}
+.side-user .su-email{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px;word-break:break-all;}
+.side-user .su-logout{font-size:11px;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
+.side-user .su-logout:hover{color:rgba(255,255,255,.7);}
+
+/* Resume library */
+.res-lib{margin-top:8px;}
+.res-lib-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:var(--r);cursor:pointer;transition:background .1s;}
+.res-lib-item:hover{background:rgba(255,255,255,.07);}
+.res-lib-item.active-res{background:rgba(255,255,255,.12);}
+.res-lib-item .ri-name{font-size:12px;color:rgba(255,255,255,.75);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.res-lib-item.active-res .ri-name{color:#fff;font-weight:600;}
+.res-lib-item .ri-del{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:14px;padding:0 0 0 6px;line-height:1;}
+.res-lib-item .ri-del:hover{color:rgba(255,255,255,.7);}
+.add-res-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:var(--r);font-size:12px;color:rgba(255,255,255,.45);border:none;background:none;cursor:pointer;width:100%;font-family:inherit;margin-top:2px;}
+.add-res-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);}
+/* Resume selector on intake page */
+.res-selector{background:var(--bg2);border:.5px solid var(--bd);border-radius:var(--rl);padding:16px 18px;margin-bottom:18px;}
+.res-selector h3{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.res-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.res-pill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;border:.5px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;}
+.res-pill:hover{background:var(--bg3);border-color:var(--ac);}
+.res-pill.active-pill{background:var(--ac);color:#fff;border-color:var(--ac);}
+.new-res-row{display:flex;gap:8px;align-items:center;}
+.new-res-row input{flex:1;padding:7px 12px;font-size:12px;}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen" class="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Piv<span>ot</span></div>
+    <div class="auth-tagline">Career momentum — your job search, organized</div>
+    <div class="auth-tabs">
+      <button class="auth-tab on" onclick="authTab('login',this)">Sign in</button>
+      <button class="auth-tab" onclick="authTab('signup',this)">Create account</button>
+    </div>
+    <div id="auth-err" class="auth-err"></div>
+    <div id="auth-signup-name" class="auth-field" style="display:none;">
+      <label>Your name</label>
+      <input type="text" id="auth-name" placeholder="e.g. Ryan Gilderman" autocomplete="name">
+    </div>
+    <div class="auth-field">
+      <label>Email</label>
+      <input type="email" id="auth-email" placeholder="you@email.com" autocomplete="email">
+    </div>
+    <div class="auth-field">
+      <label>Password</label>
+      <input type="password" id="auth-pass" placeholder="Min 6 characters" autocomplete="current-password" onkeydown="if(event.key==='Enter')authSubmit()">
+    </div>
+    <button class="auth-btn" onclick="authSubmit()" id="auth-submit-btn">Sign in</button>
+    <div class="auth-footer">Your data is stored locally on this device only.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash-screen" style="display:none;" class="app-dash">
+  <h1 id="dash-greeting">Good morning</h1>
+  <div class="sub">Here's where your job search stands.</div>
+
+  <div class="dash-section">
+    <h2>Your resume</h2>
+    <div class="resume-summary" id="dash-resume">
+      <div class="rs-left">
+        <div class="rs-name" id="dash-resume-name">No resumes saved yet</div>
+        <div class="rs-words" id="dash-resume-words">Add your first resume version to get started</div>
+      </div>
+      <button class="btn bp bs" onclick="goToIntake()">Manage →</button>
+    </div>
+  </div>
+
+  <div class="dash-section">
+    <h2>Applications</h2>
+    <div class="apps-grid" id="apps-grid">
+      <button class="new-app-btn" onclick="goToIntake()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+        New application
+      </button>
+    </div>
+  </div>
+
+  <div class="dash-section" id="dash-narrative-section" style="display:none;">
+    <h2>Career narrative</h2>
+    <div class="resume-summary">
+      <div class="rs-left">
+        <div class="rs-name">Narrative saved</div>
+        <div class="rs-words" id="dash-narrative-preview">—</div>
+      </div>
+      <button class="btn bs" onclick="showApp();nav('narrative')">View →</button>
+    </div>
+  </div>
+</div>
+
+<div class="app" id="main-app" style="display:none;">
+
+  <!-- Sidebar -->
+  <aside class="side">
+    <div class="logo">Piv<span>ot</span></div>
+    <div class="logo-sub">Career momentum</div>
+    <button class="ni" onclick="showDash()" id="nav-dash">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Dashboard
+    </button>
+    <div class="ns">Workflow</div>
+    <button class="ni on" onclick="nav('intake')" id="nav-intake">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>Intake
+    </button>
+    <button class="ni" onclick="nav('analysis')" id="nav-analysis">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><line x1="8" y1="5" x2="8" y2="8"/><line x1="8" y1="8" x2="10.5" y2="8"/></svg>Match report
+    </button>
+    <button class="ni" onclick="nav('rewrite')" id="nav-rewrite">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2.5l2.5 2.5-7 7H4v-2.5l7-7z"/></svg>Resume rewrite
+    </button>
+    <button class="ni" onclick="nav('cover')" id="nav-cover">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l6 5 6-5"/><rect x="2" y="3" width="12" height="10" rx="1.5"/></svg>Cover letter
+    </button>
+    <button class="ni" onclick="nav('prep')" id="nav-prep">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5"/><line x1="8" y1="11" x2="8" y2="13"/></svg>Interview prep
+    </button>
+    <div class="ns">Resume library</div>
+    <div class="res-lib" id="res-lib-list"></div>
+    <button class="add-res-btn" onclick="showAddResume()">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+      Add resume version
+    </button>
+    <div class="side-user">
+      <div class="su-email" id="side-email"></div>
+      <button class="su-logout" onclick="logout()">Sign out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- INTAKE -->
+    <div class="pg on" id="pg-intake">
+      <div class="ph"><h1>New application</h1><p>Upload or paste your resume — save once, reuse every time.</p></div>
+      <div class="steps">
+        <div class="step act"><div class="sdot">1</div>Resume</div><div class="sln"></div>
+        <div class="step"><div class="sdot">2</div>Job description</div><div class="sln"></div>
+        <div class="step"><div class="sdot">3</div>Analyze</div>
+      </div>
+
+      <div class="rtabs">
+        <button class="rtab on" onclick="srTab('up',this)">Upload file</button>
+        <button class="rtab" onclick="srTab('paste',this)">Paste text</button>
+      </div>
+
+      <!-- Upload -->
+      <div id="rt-up">
+        <div class="uz" id="dz" onclick="document.getElementById('fi').click()" ondragover="dov(event)" ondragleave="dlv(event)" ondrop="ddr(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 15 12 12 15 15"/></svg>
+          <h3>Drop your resume here</h3>
+          <p>PDF or Word (.docx) — or click to browse</p>
+          <div id="fpill" style="display:none;" class="fpill">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4z"/></svg>
+            <span id="fname">–</span>
+          </div>
+        </div>
+        <input type="file" id="fi" accept=".pdf,.docx,.doc" style="display:none;" onchange="fsel(event)">
+        <div style="display:flex;gap:10px;align-items:center;margin-top:14px;">
+          <button class="btn bp" onclick="parseFile()" id="pbtn" disabled>Extract &amp; save resume</button>
+          <span id="pstat" style="font-size:12px;color:var(--tx3);"></span>
+        </div>
+      </div>
+
+      <!-- Paste -->
+      <div id="rt-paste" style="display:none;">
+        <div class="al als" id="r-ok" style="display:none;">Resume loaded. Scroll down to add a job description.</div>
+        <div class="f"><label>Your master resume</label><textarea id="r-in" rows="10" placeholder="Paste your full resume. It saves automatically for future sessions."></textarea></div>
+        <button class="btn bp" onclick="saveR()">Save resume</button>
+      </div>
+
+      <hr>
+
+      <div id="jd-sec">
+        <div class="row">
+          <div class="f"><label>Company name</label><input type="text" id="co-in" placeholder="e.g. Luminate"></div>
+          <div class="f"><label>Role title</label><input type="text" id="ro-in" placeholder="e.g. Director, SMB Sales"></div>
+        </div>
+        <div class="f"><label>Job description</label><textarea id="jd-in" rows="12" placeholder="Paste the full job description — about us, values, requirements. More = better analysis."></textarea></div>
+        <div class="hint"><strong>How it works:</strong> Hit "Analyze match" and Pivot sends your resume + JD to Claude in this conversation. The full match report flows back automatically.</div>
+        <button class="btn bp" onclick="doAnalyze()" id="abtn">Analyze match →</button>
+      </div>
+    </div>
+
+    <!-- ANALYSIS -->
+    <div class="pg" id="pg-analysis">
+      <div class="ph"><h1>Match report</h1><p id="asub">—</p></div>
+      <div id="ald" class="ld">
+        <div class="sp"></div>
+        <div>Claude is analyzing your resume...</div>
+        <div class="lstp" id="lstp">Reading resume and job description</div>
+      </div>
+      <div id="aout" style="display:none;">
+        <div class="sw">
+          <div class="sr" id="sring"><div class="n" id="snum">–</div><div class="l">/ 100</div></div>
+          <div><h2 style="font-size:17px;font-weight:600;" id="slbl">–</h2><p style="font-size:13px;color:var(--tx2);margin-top:5px;line-height:1.55;" id="ssum">–</p></div>
+        </div>
+        <div class="mr">
+          <div class="mc"><div class="ml">Matched</div><div class="mv" id="m0">–</div><div class="ms">keywords</div></div>
+          <div class="mc"><div class="ml">Missing</div><div class="mv" id="m1">–</div><div class="ms">keywords</div></div>
+          <div class="mc"><div class="ml">Values</div><div class="mv" id="m2">–</div><div class="ms">found</div></div>
+          <div class="mc"><div class="ml">Rewrites</div><div class="mv" id="m3">–</div><div class="ms">ready</div></div>
+        </div>
+        <div class="two">
+          <div>
+            <div class="sh">What this company values</div>
+            <ul class="vl" id="vlist"></ul>
+          </div>
+          <div>
+            <div class="sh" style="margin-bottom:6px;">Keyword coverage</div>
+            <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;display:flex;gap:12px;">
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:7px;height:7px;background:#97C459;border-radius:50%;display:inline-block;"></span>Present</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:7px;height:7px;background:#F09595;border-radius:50%;display:inline-block;"></span>Missing</span>
+            </div>
+            <div class="kg" id="kwg"></div>
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <div class="sh">Honest assessment</div>
+          <div class="card" id="hbox" style="font-size:13px;line-height:1.7;color:var(--tx2);"></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="btn bp" onclick="nav('rewrite');buildRW()">See resume rewrites →</button>
+          <button class="btn" onclick="nav('intake')">← New application</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- REWRITE -->
+    <div class="pg" id="pg-rewrite">
+      <div class="ph"><h1>Resume rewrite</h1><p>Accept, edit, or reject each change. Then export a styled PDF.</p></div>
+      <div id="re-mt" style="padding:44px 0;text-align:center;color:var(--tx3);">Run an analysis first.<br><button class="btn" style="margin-top:16px;" onclick="nav('intake')">Go to intake →</button></div>
+      <div id="re-out" style="display:none;">
+        <div class="tabs">
+          <button class="tab on" onclick="stab('ch',this)">Suggested changes</button>
+          <button class="tab" onclick="stab('pv',this)">Final resume preview</button>
+        </div>
+        <div id="tab-ch">
+          <div class="al ali">Changes use only your real experience — language naturally adapted to this company's priorities.</div>
+          <div id="clist"></div>
+          <div class="eb">
+            <div><strong id="acnt">0 changes accepted</strong><p>Review changes, then export or generate your cover letter</p></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn" onclick="accAll()">Accept all</button>
+              <button class="btn bp" onclick="expPDF()" id="expbtn">Export PDF →</button>
+              <button class="btn" onclick="nav('cover');buildCL()">Cover letter →</button>
+            </div>
+          </div>
+        </div>
+        <div id="tab-pv" style="display:none;">
+          <div class="diff-legend">
+            <span><span class="dl-ins">Added</span> accepted rewrites</span>
+            <span><span class="dl-del">Removed</span> original text</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="display:flex;gap:8px;">
+              <button class="btn bs" onclick="toggleDiffView()" id="difftogglebtn">Switch to plain text</button>
+            </div>
+            <div style="display:flex;gap:7px;">
+              <button class="btn bs" onclick="selAll()">Select all</button>
+              <button class="btn bs bp" onclick="copyR()" id="cpbtn">Copy all text</button>
+            </div>
+          </div>
+          <div id="diff-view" class="diff-wrap"></div>
+          <textarea id="pvta" readonly style="display:none;width:100%;height:500px;font-family:inherit;font-size:13px;line-height:1.8;color:var(--tx);background:#fff;border:.5px solid var(--bd2);border-radius:var(--rl);padding:24px 28px;resize:vertical;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- COVER LETTER -->
+    <div class="pg" id="pg-cover">
+      <div class="ph"><h1>Cover letter</h1><p>Tailored, confident, specific — never generic.</p></div>
+      <div id="cl-mt" style="padding:44px 0;text-align:center;color:var(--tx3);">Complete the analysis first.<br><button class="btn" style="margin-top:16px;" onclick="nav('intake')">Go to intake →</button></div>
+      <div id="cl-ld" class="ld" style="display:none;">
+        <div class="sp"></div><div>Writing your cover letter...</div>
+        <div class="lstp">Tailoring to the role and company</div>
+      </div>
+      <div id="cl-out" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <span style="font-size:12px;color:var(--tx3);">Click anywhere to edit inline</span>
+          <div style="display:flex;gap:7px;">
+            <button class="btn bs" onclick="cpCL()">Copy text</button>
+            <button class="btn bs bp" onclick="rgnCL()">Regenerate</button>
+          </div>
+        </div>
+        <div class="card" style="padding:28px 32px;">
+          <div id="cl-txt" contenteditable="true" spellcheck="true" style="font-size:13px;line-height:1.9;color:var(--tx);white-space:pre-wrap;outline:none;min-height:200px;"></div>
+        </div>
+        <div class="eb">
+          <div><strong>Ready to export</strong><p>Connect Google Drive in Claude settings to save directly to a job folder</p></div>
+          <button class="btn bp" onclick="toast('Connect Google Drive in Claude settings to enable this.')">Export to Drive →</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- INTERVIEW PREP -->
+    <div class="pg" id="pg-prep">
+      <div class="ph">
+        <h1>Interview prep</h1>
+        <p>STAR-format answers from your real experience — plus how to handle every tough question.</p>
+      </div>
+
+      <div id="prep-mt" style="padding:44px 0;text-align:center;color:var(--tx3);">
+        Run an analysis first so Pivot knows your resume and the role.<br>
+        <button class="btn" style="margin-top:16px;" onclick="nav('intake')">Go to intake →</button>
+      </div>
+
+      <div id="prep-loading" class="ld" style="display:none;">
+        <div class="sp"></div>
+        <div>Building your interview prep guide...</div>
+        <div class="lstp" id="prep-lstp">Analyzing the role and your experience</div>
+      </div>
+
+      <div id="prep-out" style="display:none;">
+        <div class="prep-intro" id="prep-intro">
+          <h2 id="prep-title">Interview prep</h2>
+          <p id="prep-summary">—</p>
+          <div class="prep-meta">
+            <span id="prep-co">—</span>
+            <span id="prep-role">—</span>
+            <span id="prep-qcount">—</span>
+          </div>
+        </div>
+
+        <div id="prep-sections"></div>
+
+        <div class="eb" style="margin-top:24px;">
+          <div><strong>Prep complete</strong><p>Review every answer, then go ace that interview</p></div>
+          <button class="btn bp" onclick="regeneratePrep()">Regenerate prep</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NARRATIVE -->
+    <div class="pg" id="pg-narrative">
+      <div class="ph">
+        <h1>My narrative</h1>
+        <p>Build one honest, forward-looking career story that covers every transition — without throwing anyone under the bus.</p>
+      </div>
+
+      <!-- Input section -->
+      <div id="narc-input">
+        <div class="al ali" style="margin-bottom:20px;">
+          Your private notes never leave this tool — they're only used to craft your narrative and are never shared.
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div class="f"><label>Your name</label><input type="text" id="narc-name" placeholder="e.g. Ryan Gilderman"></div>
+          <div class="f"><label>What you're ultimately looking for in a role</label><textarea id="narc-want" rows="2" placeholder="e.g. A company where I can own a business line, build a team, and operate with real autonomy in a high-growth environment."></textarea></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <label style="margin:0;">Your roles (most recent first)</label>
+          <button class="btn bs" onclick="addRole()">+ Add role</button>
+        </div>
+
+        <div id="roles-list"></div>
+
+        <div class="hint" style="margin-top:4px;">
+          <strong>How it works:</strong> For each role, tell Pivot privately what actually happened. It will craft a narrative that's honest, forward-looking, and never burns bridges — framing every transition around what you were moving toward, not what you were leaving behind.
+        </div>
+
+        <button class="btn bp" onclick="buildNarrative()" id="narc-btn" style="margin-top:4px;">Build my narrative →</button>
+      </div>
+
+      <!-- Loading -->
+      <div id="narc-ld" class="ld" style="display:none;">
+        <div class="sp"></div>
+        <div>Crafting your career narrative...</div>
+        <div class="lstp" id="narc-lstp">Finding the thread that connects your story</div>
+      </div>
+
+      <!-- Output -->
+      <div id="narc-out" style="display:none;">
+
+        <div class="narc-out">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#6B3FE4" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            Your career story — "Tell me about yourself"
+          </h3>
+          <div class="narc-body" id="narc-story"></div>
+        </div>
+
+        <div class="narc-out">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#6B3FE4" stroke-width="1.5"><path d="M8 2v4l3 3"/><circle cx="8" cy="8" r="6"/></svg>
+            "Why are you looking now?" — The forward-looking answer
+          </h3>
+          <div class="narc-body" id="narc-why"></div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div class="sh" style="margin-bottom:12px;">Per-role answers — if they dig deeper</div>
+          <div id="narc-roles-out"></div>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Delivery tip:</strong> Practice your career story out loud until it takes exactly 90 seconds. Anything shorter feels rehearsed. Anything longer loses them. The goal is to sound like you're telling your story for the first time — not reciting it.</p>
+        </div>
+
+        <div class="eb" style="margin-top:20px;">
+          <div><strong>Narrative ready</strong><p>Edit any section to match your voice — then own it</p></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn bs" onclick="copyNarrative()">Copy story</button>
+            <button class="btn bs bp" onclick="resetNarrative()">Rebuild</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const RK='pivot_r1', SK='pivot_s1', RL_KEY='pivot_resume_library_v1';
+let S={r:'',co:'',ro:'',jd:'',analysis:null,changes:[],cl:'',schema:null,activeResId:null};
+
+// ── Storage ──
+
+// ── Auth & account system ──
+const ACCOUNT_KEY='pivot_account_v1';
+const APPS_KEY='pivot_apps_v1';
+let currentUser=null;
+
+async function hashPass(pass){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pass+'pivot_salt_2024'));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function init(){
+  // Check if already logged in
+  try{
+    const saved=localStorage.getItem(ACCOUNT_KEY);
+    if(saved){
+      const acc=JSON.parse(saved);
+      if(acc.loggedIn){
+        currentUser=acc;
+        showApp();
+        await loadUserData();
+        return;
+      }
+    }
+  }catch(e){}
+  // Show auth screen
+  document.getElementById('auth-screen').style.display='flex';
+}
+
+function authTab(tab,btn){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('auth-signup-name').style.display=tab==='signup'?'block':'none';
+  document.getElementById('auth-submit-btn').textContent=tab==='signup'?'Create account':'Sign in';
+  document.getElementById('auth-err').style.display='none';
+  document.getElementById('auth-pass').setAttribute('autocomplete', tab==='signup'?'new-password':'current-password');
+}
+
+async function authSubmit(){
+  const email=document.getElementById('auth-email').value.trim().toLowerCase();
+  const pass=document.getElementById('auth-pass').value;
+  const isSignup=document.getElementById('auth-submit-btn').textContent.includes('Create');
+  const errEl=document.getElementById('auth-err');
+  errEl.style.display='none';
+
+  if(!email||!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters.';errEl.style.display='block';return;}
+
+  const hashed=await hashPass(pass);
+  const stored=localStorage.getItem('pivot_user_'+email);
+
+  if(isSignup){
+    if(stored){errEl.textContent='An account with this email already exists. Sign in instead.';errEl.style.display='block';return;}
+    const name=document.getElementById('auth-name').value.trim()||email.split('@')[0];
+    const acc={email,name,hash:hashed,created:Date.now(),loggedIn:true};
+    localStorage.setItem('pivot_user_'+email,JSON.stringify(acc));
+    localStorage.setItem(ACCOUNT_KEY,JSON.stringify(acc));
+    currentUser=acc;
+  } else {
+    if(!stored){errEl.textContent='No account found. Create one first.';errEl.style.display='block';return;}
+    const acc=JSON.parse(stored);
+    if(acc.hash!==hashed){errEl.textContent='Incorrect password.';errEl.style.display='block';return;}
+    acc.loggedIn=true;
+    localStorage.setItem(ACCOUNT_KEY,JSON.stringify(acc));
+    currentUser=acc;
+  }
+
+  document.getElementById('auth-screen').style.display='none';
+  showApp();
+  await loadUserData();
+}
+
+function logout(){
+  if(!confirm('Sign out of Pivot?'))return;
+  const acc=JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'{}');
+  acc.loggedIn=false;
+  localStorage.setItem(ACCOUNT_KEY,JSON.stringify(acc));
+  currentUser=null;
+  location.reload();
+}
+
+function showApp(){
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('dash-screen').style.display='none';
+  document.getElementById('main-app').style.display='grid';
+  if(currentUser){
+    document.getElementById('side-email').textContent=currentUser.email;
+    const hr=new Date().getHours();
+    const greet=hr<12?'Good morning':'hr'<17?'Good afternoon':'Good evening';
+    document.getElementById('dash-greeting').textContent=(hr<12?'Good morning':hr<17?'Good afternoon':'Good evening')+', '+(currentUser.name||'');
+  }
+}
+
+function showDash(){
+  document.getElementById('main-app').style.display='none';
+  document.getElementById('dash-screen').style.display='block';
+  renderDash();
+}
+
+function goToIntake(){
+  document.getElementById('dash-screen').style.display='none';
+  document.getElementById('main-app').style.display='grid';
+  nav('intake');
+}
+
+async function loadUserData(){
+  if(!currentUser)return;
+  const key='pivot_data_'+currentUser.email;
+  try{
+    const saved=localStorage.getItem(key);
+    if(saved){
+      const d=JSON.parse(saved);
+      if(d.schema)S.schema=d.schema;
+      if(d.activeResId)S.activeResId=d.activeResId;
+    }
+  }catch(e){}
+  // Load library and activate first resume if none active
+  const lib=getLibrary();
+  if(!S.activeResId && lib.length){
+    S.activeResId=lib[0].id;
+    S.r=lib[0].text;
+    document.getElementById('r-in').value=lib[0].text;
+    document.getElementById('r-in-label').textContent=lib[0].name;
+  } else if(S.activeResId){
+    const res=lib.find(r=>r.id===S.activeResId);
+    if(res){
+      S.r=res.text;
+      document.getElementById('r-in').value=res.text;
+      document.getElementById('r-in-label').textContent=res.name;
+    }
+  }
+  renderResLibrary();
+  showDash();
+}
+
+function saveUserData(){
+  if(!currentUser)return;
+  const key='pivot_data_'+currentUser.email;
+  const existing=JSON.parse(localStorage.getItem(key)||'{}');
+  if(S.schema)existing.schema=S.schema;
+  if(S.activeResId)existing.activeResId=S.activeResId;
+  localStorage.setItem(key,JSON.stringify(existing));
+}
+
+function saveApplication(){
+  if(!currentUser||!S.analysis)return;
+  const key='pivot_apps_'+currentUser.email;
+  const apps=JSON.parse(localStorage.getItem(key)||'[]');
+  const app={
+    id:Date.now(),
+    company:S.co,
+    role:S.ro,
+    score:S.analysis.score,
+    scoreLabel:S.analysis.scoreLabel,
+    date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    hasCL:!!S.cl,
+    hasPrep:false,
+    hasNarrative:false,
+    jd:S.jd,
+  };
+  // Check for existing entry for same company+role
+  const idx=apps.findIndex(a=>a.company===S.co&&a.role===S.ro);
+  if(idx>=0)apps[idx]={...apps[idx],...app,id:apps[idx].id};
+  else apps.unshift(app);
+  localStorage.setItem(key,JSON.stringify(apps));
+}
+
+function saveCoverLetter(){
+  if(!currentUser||!S.cl||!S.co)return;
+  const key='pivot_apps_'+currentUser.email;
+  const apps=JSON.parse(localStorage.getItem(key)||'[]');
+  const idx=apps.findIndex(a=>a.company===S.co&&a.role===S.ro);
+  if(idx>=0){apps[idx].hasCL=true;apps[idx].coverLetter=S.cl;localStorage.setItem(key,JSON.stringify(apps));}
+}
+
+function saveNarrative(storyText){
+  if(!currentUser)return;
+  const key='pivot_data_'+currentUser.email;
+  const existing=JSON.parse(localStorage.getItem(key)||'{}');
+  existing.narrativePreview=storyText?storyText.slice(0,120)+'...':'';
+  localStorage.setItem(key,JSON.stringify(existing));
+  // Update apps
+  const akey='pivot_apps_'+currentUser.email;
+  const apps=JSON.parse(localStorage.getItem(akey)||'[]');
+  apps.forEach(a=>a.hasNarrative=true);
+  localStorage.setItem(akey,JSON.stringify(apps));
+}
+
+function renderDash(){
+  if(!currentUser)return;
+  // Resume library summary
+  const lib=getLibrary();
+  const rname=document.getElementById('dash-resume-name');
+  const rwords=document.getElementById('dash-resume-words');
+  if(lib.length){
+    rname.textContent=lib.length+' resume version'+(lib.length>1?'s':'')+' saved';
+    const names=lib.map(r=>r.name).join(' · ');
+    rwords.textContent=names;
+  }
+  renderResLibrary();
+  // Applications
+  const key='pivot_apps_'+currentUser.email;
+  const apps=JSON.parse(localStorage.getItem(key)||'[]');
+  const grid=document.getElementById('apps-grid');
+  grid.innerHTML='';
+  apps.forEach(a=>{
+    const color=a.score>=70?'#0F9E6A':a.score>=50?'#F59E0B':'#DC2626';
+    const card=document.createElement('div');
+    card.className='app-card';
+    card.onclick=()=>loadApplication(a);
+    const badges=[];
+    if(a.hasCL)badges.push('<span class="ac-badge acb-cl">Cover letter</span>');
+    if(a.hasPrep)badges.push('<span class="ac-badge acb-pr">Interview prep</span>');
+    if(a.hasNarrative)badges.push('<span class="ac-badge acb-na">Narrative</span>');
+    card.innerHTML=`<div class="ac-co">${esc(a.company)}</div><div class="ac-ro">${esc(a.role)}</div><div class="ac-score"><span class="score-dot" style="background:${color}"></span><span style="color:${color}">${a.score}/100</span> <span style="color:#8A86A0;font-weight:400;">${esc(a.scoreLabel||'')}</span></div>${badges.length?'<div class="ac-badges">'+badges.join('')+'</div>':''}<div class="ac-date">${esc(a.date)}</div>`;
+    grid.appendChild(card);
+  });
+  // New app button
+  const newBtn=document.createElement('button');
+  newBtn.className='new-app-btn';
+  newBtn.onclick=goToIntake;
+  newBtn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg> New application';
+  grid.appendChild(newBtn);
+  // Narrative
+  const dataKey='pivot_data_'+currentUser.email;
+  const d=JSON.parse(localStorage.getItem(dataKey)||'{}');
+  if(d.narrativePreview){
+    document.getElementById('dash-narrative-section').style.display='block';
+    document.getElementById('dash-narrative-preview').textContent=d.narrativePreview;
+  }
+}
+
+function loadApplication(a){
+  S.co=a.company;S.ro=a.role;S.jd=a.jd||'';S.cl=a.coverLetter||'';
+  document.getElementById('co-in').value=a.company;
+  document.getElementById('ro-in').value=a.role;
+  document.getElementById('jd-in').value=a.jd||'';
+  showApp();
+  nav('analysis');
+}
+
+// ── Resume library ──
+function getLibrary(){
+  try{ return JSON.parse(localStorage.getItem(RL_KEY)||'[]'); }catch(e){ return []; }
+}
+function saveLibrary(lib){
+  try{ localStorage.setItem(RL_KEY, JSON.stringify(lib)); }catch(e){}
+}
+
+function renderResLibrary(){
+  const lib = getLibrary();
+  // Sidebar list
+  const sideList = document.getElementById('res-lib-list');
+  if(sideList){
+    sideList.innerHTML = '';
+    if(!lib.length){
+      sideList.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:6px 10px;">No resumes saved yet</div>';
+    }
+    lib.forEach(res => {
+      const item = document.createElement('div');
+      item.className = 'res-lib-item' + (S.activeResId===res.id?' active-res':'');
+      item.innerHTML = `<span class="ri-name" onclick="activateResume('${res.id}')">${esc(res.name)}</span><button class="ri-del" onclick="deleteResume('${res.id}')" title="Delete">×</button>`;
+      sideList.appendChild(item);
+    });
+  }
+  // Intake pills
+  const pills = document.getElementById('res-pills');
+  if(pills){
+    pills.innerHTML = '';
+    if(!lib.length){
+      pills.innerHTML = '<span style="font-size:12px;color:var(--tx3);">No resumes saved yet — add one below</span>';
+    } else {
+      lib.forEach(res => {
+        const pill = document.createElement('button');
+        pill.className = 'res-pill' + (S.activeResId===res.id?' active-pill':'');
+        pill.textContent = res.name;
+        pill.onclick = () => activateResume(res.id);
+        pills.appendChild(pill);
+      });
+    }
+  }
+}
+
+function activateResume(id){
+  const lib = getLibrary();
+  const res = lib.find(r => r.id === id);
+  if(!res) return;
+  S.activeResId = res.id;
+  S.r = res.text;
+  document.getElementById('r-in').value = res.text;
+  document.getElementById('r-in-label').textContent = res.name;
+  document.getElementById('r-ok').style.display = 'block';
+  document.getElementById('r-save-note').textContent = 'Active: ' + res.name;
+  renderResLibrary();
+  toast(res.name + ' loaded!');
+}
+
+function addNewResume(){
+  const name = document.getElementById('new-res-name').value.trim();
+  if(!name){ alert('Give this resume version a name first.'); return; }
+  const lib = getLibrary();
+  const id = 'res_' + Date.now();
+  lib.push({ id, name, text: '', created: Date.now() });
+  saveLibrary(lib);
+  S.activeResId = id;
+  document.getElementById('new-res-name').value = '';
+  document.getElementById('r-in').value = '';
+  document.getElementById('r-in').placeholder = 'Paste your resume for "' + name + '" here...';
+  document.getElementById('r-in-label').textContent = name;
+  document.getElementById('r-save-note').textContent = '';
+  document.getElementById('r-ok').style.display = 'none';
+  renderResLibrary();
+  document.getElementById('r-in').focus();
+  toast('Created "' + name + '" — paste your resume and save!');
+}
+
+function deleteResume(id){
+  const lib = getLibrary();
+  const res = lib.find(r => r.id === id);
+  if(!res || !confirm('Delete "' + res.name + '"?')) return;
+  const newLib = lib.filter(r => r.id !== id);
+  saveLibrary(newLib);
+  if(S.activeResId === id){
+    S.activeResId = newLib.length ? newLib[0].id : null;
+    S.r = newLib.length ? newLib[0].text : '';
+    document.getElementById('r-in').value = S.r;
+    document.getElementById('r-in-label').textContent = newLib.length ? newLib[0].name : 'Your resume';
+  }
+  renderResLibrary();
+  toast('Deleted "' + res.name + '"');
+}
+
+function showAddResume(){
+  showApp(); nav('intake');
+  setTimeout(()=>{ document.getElementById('new-res-name').focus(); }, 100);
+}
+
+async function saveR(){
+  const v = document.getElementById('r-in').value.trim();
+  if(!v){ alert('Paste your resume first.'); return; }
+  if(!S.activeResId){
+    // No version selected — prompt to name it
+    const name = prompt('Name this resume version (e.g. "Sales & Account Management"):');
+    if(!name) return;
+    const lib = getLibrary();
+    const id = 'res_' + Date.now();
+    lib.push({ id, name, text: v, created: Date.now() });
+    saveLibrary(lib);
+    S.activeResId = id;
+    S.r = v;
+    document.getElementById('r-in-label').textContent = name;
+    document.getElementById('r-save-note').textContent = 'Active: ' + name;
+  } else {
+    const lib = getLibrary();
+    const idx = lib.findIndex(r => r.id === S.activeResId);
+    if(idx >= 0){ lib[idx].text = v; saveLibrary(lib); }
+    S.r = v;
+  }
+  try{ localStorage.setItem(RK, v); }catch(e){}
+  saveUserData();
+  renderResLibrary();
+  document.getElementById('r-ok').style.display = 'block';
+  toast('Resume saved!');
+}
+
+function clearR(){
+  // Deprecated — handled by deleteResume now
+}
+function setBadge(ok){
+  // Now handled by renderResLibrary
+  renderResLibrary();
+}
+
+// ── Resume input tabs ──
+function srTab(t,btn){
+  document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('rt-up').style.display=t==='up'?'block':'none';
+  document.getElementById('rt-paste').style.display=t==='paste'?'block':'none';
+}
+
+// ── File upload ──
+let pendingFile=null;
+function dov(e){e.preventDefault();document.getElementById('dz').classList.add('drag');}
+function dlv(){document.getElementById('dz').classList.remove('drag');}
+function ddr(e){e.preventDefault();dlv();const f=e.dataTransfer.files[0];if(f)hFile(f);}
+function fsel(e){const f=e.target.files[0];if(f)hFile(f);}
+function hFile(f){
+  if(!/\.(pdf|docx|doc)$/i.test(f.name)){toast('Please upload a PDF or Word file');return;}
+  pendingFile=f;
+  document.getElementById('fname').textContent=f.name;
+  document.getElementById('fpill').style.display='inline-flex';
+  document.getElementById('pbtn').disabled=false;
+}
+function parseFile(){
+  if(!pendingFile)return;
+  document.getElementById('pbtn').disabled=true;
+  document.getElementById('pstat').textContent='Reading file...';
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    const b64=e.target.result.split(',')[1];
+    const ext=pendingFile.name.split('.').pop().toLowerCase();
+    sendPrompt(`PIVOT_PARSEFILE|||${JSON.stringify({b64,ext,filename:pendingFile.name})}`);
+    document.getElementById('pstat').textContent='Extracting with Claude...';
+  };
+  reader.readAsDataURL(pendingFile);
+}
+
+// ── Nav ──
+function nav(p){
+  if(p==='prep' && S.analysis && !document.getElementById('prep-out').style.display.includes('block')){
+    setTimeout(buildPrep, 50);
+  }
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on'));
+  document.getElementById('pg-'+p).classList.add('on');
+  document.getElementById('nav-'+p).classList.add('on');
+}
+
+// ── Analysis ──
+function doAnalyze(){
+  const r=document.getElementById('r-in').value.trim()||S.r;
+  const jd=document.getElementById('jd-in').value.trim();
+  if(!r){alert('Save your resume first.');return;}
+  if(!jd){alert('Paste a job description.');return;}
+  S.r=r;S.jd=jd;
+  S.co=document.getElementById('co-in').value.trim()||'the company';
+  S.ro=document.getElementById('ro-in').value.trim()||'this role';
+  S.analysis=null;S.changes=[];S.cl='';
+  document.getElementById('abtn').disabled=true;
+  nav('analysis');
+  document.getElementById('ald').style.display='block';
+  document.getElementById('aout').style.display='none';
+  document.getElementById('asub').textContent=S.co+' — '+S.ro;
+  const steps=['Reading resume and job description','Extracting company values','Mapping keyword alignment','Scoring your fit','Building rewrite suggestions'];
+  let i=0;const el=document.getElementById('lstp');
+  window._iv=setInterval(()=>{el.textContent=steps[++i%steps.length];},2000);
+  sendPrompt(`PIVOT_ANALYZE|||${JSON.stringify({resume:S.r,jd:S.jd,company:S.co,role:S.ro})}`);
+}
+
+// ── Export PDF ──
+function expPDF(){
+  let r=S.r;
+  S.changes.filter(c=>c.status==='accepted').forEach(c=>{r=r.replace(c.original,c.rewrite);});
+  document.getElementById('expbtn').textContent='Generating...';
+  document.getElementById('expbtn').disabled=true;
+  sendPrompt(`PIVOT_EXPORTPDF|||${JSON.stringify({resume:r,schema:S.schema||{},company:S.co,role:S.ro})}`);
+}
+
+// ── Cover letter ──
+function buildCL(){
+  if(!S.analysis){document.getElementById('cl-mt').style.display='block';return;}
+  document.getElementById('cl-mt').style.display='none';
+  document.getElementById('cl-ld').style.display='block';
+  document.getElementById('cl-out').style.display='none';
+  let tr=S.r;
+  S.changes.filter(c=>c.status==='accepted').forEach(c=>{tr=tr.replace(c.original,c.rewrite);});
+  const vals=(S.analysis.companyValues||[]).slice(0,3).map(v=>v.value).join(', ');
+  sendPrompt(`PIVOT_COVERLETTER|||${JSON.stringify({resume:tr,company:S.co,role:S.ro,jd:S.jd,values:vals})}`);
+}
+function rgnCL(){S.cl='';document.getElementById('cl-out').style.display='none';buildCL();}
+function cpCL(){navigator.clipboard.writeText(document.getElementById('cl-txt').innerText);toast('Copied!');}
+
+// ── Receive results from Claude ──
+window.PIVOT_RESULT=function(type,payload){
+  if(type==='parsefile'){
+    const d=typeof payload==='string'?JSON.parse(payload):payload;
+    S.r=d.text;S.schema=d.schema||null;
+    document.getElementById('r-in').value=d.text;
+    setBadge(true);
+    document.getElementById('pstat').textContent=`Done — ${d.wordCount||''} words extracted`;
+    document.getElementById('pbtn').disabled=false;
+    document.getElementById('pbtn').textContent='Extract & save resume';
+    try{localStorage.setItem(RK,d.text);if(d.schema)localStorage.setItem(SK,JSON.stringify(d.schema));}catch(e){}
+    toast('Resume extracted and saved!');
+  } else if(type==='analysis'){
+    clearInterval(window._iv);
+    try{
+      const d=typeof payload==='string'?JSON.parse(payload):payload;
+      S.analysis=d;S.changes=(d.rewrites||[]).map(r=>({...r,status:'pending'}));
+      renderA(d);
+    }catch(e){
+      document.getElementById('ald').innerHTML=`<div style="color:var(--tx2);text-align:center;padding:44px;">Could not parse analysis — please try again.<br><button class="btn" style="margin-top:16px;" onclick="nav('intake')">← Back</button></div>`;
+    }
+    document.getElementById('abtn').disabled=false;
+    saveApplication();
+    saveUserData();
+  } else if(type==='coverletter'){
+    S.cl=payload;
+    document.getElementById('cl-txt').textContent=payload;
+    document.getElementById('cl-ld').style.display='none';
+    document.getElementById('cl-out').style.display='block';
+    saveCoverLetter();
+  } else if(type==='interviewprep'){
+    try {
+      const d = typeof payload === 'string' ? JSON.parse(payload) : payload;
+      renderPrep(d);
+    } catch(e) {
+      document.getElementById('prep-loading').innerHTML = '<div style="color:var(--tx2);text-align:center;padding:44px;">Could not parse prep guide — please try again.<br><button class="btn" style="margin-top:16px;" onclick="buildPrep()">Try again</button></div>';
+    }
+  } else if(type==='narrative'){
+    try{
+      const d=typeof payload==='string'?JSON.parse(payload):payload;
+      renderNarrative(d);
+    }catch(e){
+      document.getElementById('narc-ld').innerHTML='<div style="color:var(--tx2);text-align:center;padding:44px;">Could not generate narrative — please try again.<br><button class="btn" style="margin-top:16px;" onclick="resetNarrative()">Try again</button></div>';
+    }
+  } else if(type==='pdfready'){
+    document.getElementById('expbtn').textContent='Export PDF →';
+    document.getElementById('expbtn').disabled=false;
+    toast('PDF ready — check the conversation for your download link');
+  }
+};
+
+function renderA(d){
+  document.getElementById('ald').style.display='none';
+  document.getElementById('aout').style.display='block';
+  const sc=d.score,col=sc>=70?'#12A873':sc>=50?'#D97706':'#DC2626';
+  document.getElementById('sring').style.borderColor=col;
+  document.getElementById('snum').textContent=sc;document.getElementById('snum').style.color=col;
+  document.getElementById('slbl').textContent=d.scoreLabel||'';
+  document.getElementById('ssum').textContent=d.scoreSummary||'';
+  document.getElementById('m0').textContent=(d.matchedKeywords||[]).length;
+  document.getElementById('m1').textContent=(d.missingKeywords||[]).length;
+  document.getElementById('m2').textContent=(d.companyValues||[]).length;
+  document.getElementById('m3').textContent=(d.rewrites||[]).length;
+  const vl=document.getElementById('vlist');vl.innerHTML='';
+  (d.companyValues||[]).forEach(v=>{const li=document.createElement('li');li.innerHTML=`<strong>${esc(v.value)}</strong> — ${esc(v.evidence)}`;vl.appendChild(li);});
+  const kg=document.getElementById('kwg');kg.innerHTML='';
+  (d.matchedKeywords||[]).forEach(k=>{const s=document.createElement('span');s.className='kw hit';s.textContent=k;kg.appendChild(s);});
+  (d.missingKeywords||[]).forEach(k=>{const s=document.createElement('span');s.className='kw miss';s.textContent=k;kg.appendChild(s);});
+  document.getElementById('hbox').textContent=d.honestAssessment||'';
+}
+
+function buildRW(){
+  if(!S.analysis)return;
+  document.getElementById('re-mt').style.display='none';
+  document.getElementById('re-out').style.display='block';
+  const list=document.getElementById('clist');list.innerHTML='';
+  S.changes.forEach((c,i)=>{
+    const el=document.createElement('div');el.className='cc';el.id='cc'+i;
+    el.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;">${esc(c.section)}</span><span style="font-size:11px;color:var(--tx3);" id="cb${i}">Pending</span></div><div class="co">Original: <em>${esc(c.original)}</em></div><div class="cn">${esc(c.rewrite)}</div><div class="cw">${esc(c.reason)}</div><div class="ca"><button class="btn bs" onclick="acc(${i})">Accept</button><button class="btn bs" onclick="rej(${i})">Reject</button><button class="btn bs" onclick="navigator.clipboard.writeText(${JSON.stringify(c.rewrite)});toast('Copied')">Copy</button></div>`;
+    list.appendChild(el);
+  });
+  updC();
+}
+function acc(i){S.changes[i].status='accepted';const c=document.getElementById('cc'+i);c.classList.add('acc');c.classList.remove('rej');const b=document.getElementById('cb'+i);b.textContent='Accepted';b.style.color='var(--ac)';updC();bldPv();}
+function rej(i){S.changes[i].status='rejected';const c=document.getElementById('cc'+i);c.classList.add('rej');c.classList.remove('acc');const b=document.getElementById('cb'+i);b.textContent='Rejected';b.style.color='var(--tx3)';updC();bldPv();}
+function accAll(){S.changes.forEach((_,i)=>acc(i));}
+function updC(){const n=S.changes.filter(c=>c.status==='accepted').length;document.getElementById('acnt').textContent=`${n} of ${S.changes.length} changes accepted`;}
+function stab(t,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));btn.classList.add('on');document.getElementById('tab-ch').style.display=t==='ch'?'block':'none';document.getElementById('tab-pv').style.display=t==='pv'?'block':'none';if(t==='pv')bldPv();}
+function bldPv(){
+  let r=S.r;
+  const accepted=S.changes.filter(c=>c.status==='accepted');
+  // Build inline diff view
+  const diffEl=document.getElementById('diff-view');
+  const taEl=document.getElementById('pvta');
+  if(diffEl){
+    let diffHtml=esc(S.r);
+    accepted.forEach(c=>{
+      const escapedOrig=esc(c.original);
+      const escapedNew=esc(c.rewrite);
+      const ins='<span class=\'diff-ins\'>'+escapedNew+'</span>';
+      const del='<span class=\'diff-del\'>'+escapedOrig+'</span>';
+      diffHtml=diffHtml.replace(escapedOrig, del+ins);
+    });
+    diffEl.innerHTML=diffHtml;
+  }
+  // Also update plain text textarea
+  accepted.forEach(c=>{r=r.replace(c.original,c.rewrite);});
+  if(taEl)taEl.value=r;
+}
+function toggleDiffView(){
+  const dv=document.getElementById('diff-view');
+  const ta=document.getElementById('pvta');
+  const btn=document.getElementById('difftogglebtn');
+  if(dv.style.display==='none'){
+    dv.style.display='block';ta.style.display='none';
+    btn.textContent='Switch to plain text';
+  } else {
+    dv.style.display='none';ta.style.display='block';
+    btn.textContent='Switch to diff view';
+  }
+}
+function selAll(){const t=document.getElementById('pvta');t.focus();t.select();}
+function copyR(){let r=S.r;S.changes.filter(c=>c.status==='accepted').forEach(c=>{r=r.replace(c.original,c.rewrite);});navigator.clipboard.writeText(r).then(()=>{const b=document.getElementById('cpbtn');b.textContent='Copied!';setTimeout(()=>b.textContent='Copy all text',2000);});}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function toast(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;bottom:22px;right:22px;background:#1C1740;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;z-index:9999;font-family:Inter,sans-serif;';document.body.appendChild(t);setTimeout(()=>t.remove(),2400);}
+
+// ── Note about sendPrompt ──
+// When running as a downloaded HTML file, sendPrompt won't be available.
+// The analysis, cover letter, and file parsing require Claude in the loop.
+// To use standalone, replace sendPrompt calls with direct Anthropic API fetch calls
+// using your own API key.
+if(typeof sendPrompt==='undefined'){
+  window.sendPrompt=function(msg){
+    console.warn('sendPrompt not available — running outside Claude. Message:', msg.slice(0,80));
+    if(msg.startsWith('PIVOT_ANALYZE')){
+      setTimeout(()=>{
+        document.getElementById('ald').innerHTML='<div style="text-align:center;padding:44px;color:#5A5272;">To analyze resumes, open this file inside Claude.ai or add your Anthropic API key to enable standalone mode.</div>';
+        document.getElementById('abtn').disabled=false;
+        clearInterval(window._iv);
+      },1000);
+    }
+  };
+}
+
+
+// ── Interview prep ──
+function buildPrep() {
+  if (!S.analysis || !S.r) {
+    document.getElementById('prep-mt').style.display = 'block';
+    document.getElementById('prep-loading').style.display = 'none';
+    document.getElementById('prep-out').style.display = 'none';
+    return;
+  }
+  document.getElementById('prep-mt').style.display = 'none';
+  document.getElementById('prep-loading').style.display = 'block';
+  document.getElementById('prep-out').style.display = 'none';
+
+  const steps = [
+    'Analyzing the role and your experience',
+    'Identifying likely interview themes',
+    'Crafting STAR-format answers',
+    'Building gap-handling strategies',
+    'Finalizing your prep guide'
+  ];
+  let si = 0;
+  const el = document.getElementById('prep-lstp');
+  window._prepIv = setInterval(() => { el.textContent = steps[++si % steps.length]; }, 2500);
+
+  const gaps = (S.analysis.missingKeywords || []).slice(0, 4).join(', ');
+  const values = (S.analysis.companyValues || []).slice(0, 4).map(v => v.value).join(', ');
+
+  sendPrompt(`PIVOT_INTERVIEWPREP|||${JSON.stringify({
+    resume: S.r,
+    jd: S.jd,
+    company: S.co,
+    role: S.ro,
+    gaps: gaps,
+    values: values,
+    score: S.analysis.score
+  })}`);
+}
+
+function regeneratePrep() {
+  document.getElementById('prep-out').style.display = 'none';
+  buildPrep();
+}
+
+function renderPrep(d) {
+  clearInterval(window._prepIv);
+  document.getElementById('prep-loading').style.display = 'none';
+  document.getElementById('prep-out').style.display = 'block';
+
+  document.getElementById('prep-title').textContent = (d.company || S.co) + ' — Interview Prep';
+  document.getElementById('prep-summary').textContent = d.summary || '';
+  document.getElementById('prep-co').textContent = '🏢 ' + (d.company || S.co);
+  document.getElementById('prep-role').textContent = '💼 ' + (d.role || S.ro);
+  document.getElementById('prep-qcount').textContent = '❓ ' + (d.questions || []).length + ' questions';
+
+  const sections = {
+    behavioral: { label: 'Behavioral questions', tag: 'beh', tagLabel: 'Behavioral' },
+    situational: { label: 'Situational & role-specific', tag: 'sit', tagLabel: 'Situational' },
+    gaps: { label: 'Handling your gaps', tag: 'gap', tagLabel: 'Gap response' },
+    company: { label: 'Company & culture', tag: 'co', tagLabel: 'Company' },
+  };
+
+  const container = document.getElementById('prep-sections');
+  container.innerHTML = '';
+
+  const grouped = {};
+  (d.questions || []).forEach(q => {
+    const type = q.type || 'behavioral';
+    if (!grouped[type]) grouped[type] = [];
+    grouped[type].push(q);
+  });
+
+  Object.keys(sections).forEach(skey => {
+    const qs = grouped[skey];
+    if (!qs || !qs.length) return;
+    const sec = sections[skey];
+
+    const div = document.createElement('div');
+    div.innerHTML = `<div class="section-divider"><h2>${sec.label}</h2></div>`;
+
+    qs.forEach(q => {
+      const card = document.createElement('div');
+      card.className = 'qcard';
+      let answerHTML = '';
+      if (q.star) {
+        answerHTML = `
+          <div class="qlbl">Situation</div><div class="qans">${esc(q.star.situation || '')}</div>
+          <div class="qlbl">Task</div><div class="qans">${esc(q.star.task || '')}</div>
+          <div class="qlbl">Action</div><div class="qans">${esc(q.star.action || '')}</div>
+          <div class="qlbl">Result</div><div class="qans">${esc(q.star.result || '')}</div>
+        `;
+      } else if (q.answer) {
+        answerHTML = `<div class="qlbl">Suggested answer</div><div class="qans">${esc(q.answer)}</div>`;
+      }
+      const tipHTML = q.tip ? `<div class="qtip">💡 ${esc(q.tip)}</div>` : '';
+      card.innerHTML = `
+        <span class="qtag ${sec.tag}">${sec.tagLabel}</span>
+        <h3>${esc(q.question)}</h3>
+        ${answerHTML}
+        ${tipHTML}
+      `;
+      div.appendChild(card);
+    });
+
+    container.appendChild(div);
+  });
+}
+
+
+// ── Narrative tool ──
+let roles = [];
+
+function addRole(){
+  const id = Date.now();
+  roles.push({id, company:'', title:'', years:'', situation:'culture', privateNote:''});
+  renderRoles();
+}
+
+function removeRole(id){
+  roles = roles.filter(r => r.id !== id);
+  renderRoles();
+}
+
+function renderRoles(){
+  const list = document.getElementById('roles-list');
+  if(!roles.length){
+    list.innerHTML = '<div style="text-align:center;padding:20px 0;color:var(--tx3);font-size:12px;">No roles added yet — click "+ Add role" above</div>';
+    return;
+  }
+  list.innerHTML = '';
+  roles.forEach((r, i) => {
+    const div = document.createElement('div');
+    div.className = 'role-entry';
+    div.innerHTML = `
+      <div class="role-num">Role ${i+1}</div>
+      <button class="role-del" onclick="removeRole(${r.id})">×</button>
+      <div class="row" style="gap:12px;margin-bottom:12px;">
+        <div class="f" style="margin:0;"><label>Company</label><input type="text" placeholder="e.g. DoorDash" value="${esc(r.company)}" onchange="updateRole(${r.id},'company',this.value)"></div>
+        <div class="f" style="margin:0;"><label>Your title</label><input type="text" placeholder="e.g. Strategic AE" value="${esc(r.title)}" onchange="updateRole(${r.id},'title',this.value)"></div>
+      </div>
+      <div class="f" style="margin-bottom:12px;"><label>Years there</label><input type="text" placeholder="e.g. 2022–2024" value="${esc(r.years)}" onchange="updateRole(${r.id},'years',this.value)"></div>
+      <div class="f" style="margin-bottom:12px;">
+        <label>What happened</label>
+        <select class="situation-select" onchange="updateRole(${r.id},'situation',this.value)">
+          <option value="culture" ${r.situation==='culture'?'selected':''}>Left due to culture / leadership issues</option>
+          <option value="laid_off" ${r.situation==='laid_off'?'selected':''}>Laid off or restructuring</option>
+          <option value="didnt_work" ${r.situation==='didnt_work'?'selected':''}>Role didn't work out as expected</option>
+          <option value="short_stint" ${r.situation==='short_stint'?'selected':''}>Short stint that needs explaining</option>
+          <option value="growth" ${r.situation==='growth'?'selected':''}>Left for a better opportunity</option>
+        </select>
+      </div>
+      <div class="f" style="margin:0;">
+        <div class="private-badge">🔒 Private note — only used to craft your narrative</div>
+        <textarea class="private-note" rows="3" placeholder="Tell Pivot what actually happened. e.g. 'Leadership changed direction mid-year, the culture became toxic and my manager was let go — I lost faith in where the company was headed.'" onchange="updateRole(${r.id},'privateNote',this.value)">${esc(r.privateNote)}</textarea>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function updateRole(id, field, value){
+  const r = roles.find(x => x.id === id);
+  if(r) r[field] = value;
+}
+
+function buildNarrative(){
+  const name = document.getElementById('narc-name').value.trim();
+  const want = document.getElementById('narc-want').value.trim();
+  if(!roles.length){ alert('Add at least one role first.'); return; }
+  if(!want){ alert('Tell Pivot what you are looking for in a role.'); return; }
+
+  document.getElementById('narc-input').style.display='none';
+  document.getElementById('narc-ld').style.display='block';
+  document.getElementById('narc-out').style.display='none';
+
+  const steps=['Finding the thread that connects your story','Reframing each transition forward','Crafting your "tell me about yourself" answer','Building per-role talking points','Polishing the narrative'];
+  let si=0;const el=document.getElementById('narc-lstp');
+  window._narcIv=setInterval(()=>{el.textContent=steps[++si%steps.length];},2200);
+
+  const payload = {
+    name,
+    want,
+    roles: roles.map(r => ({
+      company: r.company,
+      title: r.title,
+      years: r.years,
+      situation: r.situation,
+      privateNote: r.privateNote
+    })),
+    targetRole: S.ro || '',
+    targetCompany: S.co || ''
+  };
+
+  sendPrompt(`PIVOT_NARRATIVE|||${JSON.stringify(payload)}`);
+}
+
+function resetNarrative(){
+  document.getElementById('narc-out').style.display='none';
+  document.getElementById('narc-input').style.display='block';
+}
+
+function copyNarrative(){
+  const story = document.getElementById('narc-story').innerText;
+  const why = document.getElementById('narc-why').innerText;
+  navigator.clipboard.writeText(`CAREER STORY\n\n${story}\n\nWHY NOW\n\n${why}`);
+  toast('Narrative copied!');
+}
+
+function splitShort(text){
+  if(!text)return[];
+  const cleaned=text.replace(/^[•·▪\-–*]\s*/gm,'').trim();
+  const parts=cleaned.split(/(?<=[.!?])\s+(?=[A-Z"'])/);
+  const out=[];
+  parts.forEach(p=>{
+    p=p.trim();if(!p)return;
+    if(p.length>100){
+      p.split(/\s*[;—]\s*/).forEach(s=>{if(s.trim())out.push(s.trim());});
+    } else out.push(p);
+  });
+  return out.length?out:[cleaned];
+}
+
+function narcBuls(items){
+  const bullets=Array.isArray(items)?items.flatMap(s=>splitShort(s)):splitShort(items);
+  return'<ul class="narc-bul">'+bullets.map(b=>`<li>${esc(b)}</li>`).join('')+'</ul>';
+}
+
+function renderNarrative(d){
+  clearInterval(window._narcIv);
+  document.getElementById('narc-ld').style.display='none';
+  document.getElementById('narc-out').style.display='block';
+
+  if(d.story)saveNarrative(Array.isArray(d.story)?d.story[0]:d.story);
+  document.getElementById('narc-story').innerHTML = narcBuls(d.story);
+  document.getElementById('narc-why').innerHTML = narcBuls(d.whyNow);
+
+  // Per-role cards
+  const rolesOut = document.getElementById('narc-roles-out');
+  rolesOut.innerHTML = '';
+  (d.roleAnswers || []).forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'narc-role-card';
+    card.innerHTML = `
+      <div class="rc-co">${esc(r.company)} — ${esc(r.title)}</div>
+      <div class="rc-q">"Why did you leave ${esc(r.company)}?"</div>
+      <div class="rc-a">${esc(r.answer)}</div>
+    `;
+    rolesOut.appendChild(card);
+  });
+}
+
+// Init roles with one empty entry
+if(!roles.length){ addRole(); }
+
+init();
+</script>
+</body>
+</html>
